@@ -1,0 +1,38 @@
+{
+  "name": "serverless-appsync-lab",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "sls offline start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reppajm/serverless-appsync-lab.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reppajm/serverless-appsync-lab/issues"
+  },
+  "homepage": "https://github.com/reppajm/serverless-appsync-lab#readme",
+  "devDependencies": {
+    "serverless": "^2.66.1",
+    "serverless-webpack": "^5.6.1",
+    "webpack": "4.44.2"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.49.0",
+    "@aws-sdk/client-dynamodb": "^3.42.0",
+    "@aws-sdk/client-s3": "^3.44.0",
+    "@aws-sdk/s3-request-presigner": "^3.44.0",
+    "@aws-sdk/util-dynamodb": "^3.42.0",
+    "serverless-appsync-plugin": "^1.12.1",
+    "serverless-appsync-simulator": "^0.19.2",
+    "serverless-dynamodb-local": "^0.2.40",
+    "serverless-offline": "^8.2.0",
+    "stripe": "^8.222.0",
+    "uuid": "^8.3.2"
+  }
+}

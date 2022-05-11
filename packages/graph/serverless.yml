@@ -1,0 +1,90 @@
+service: stripe-demo-api
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ap-southeast-2
+  lambdaHashingVersion: 20201221
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "s3:ListBucket"
+            - "s3:GetObject"
+            - "s3:PutObject"
+            - "s3:DeleteObject"
+            - "dynamodb:PutItem"
+            - "dynamodb:UpdateItem"
+            - "dynamodb:DeleteItem"
+            - "dynamodb:GetItem"
+            - "dynamodb:Query"
+            - "dynamodb:Scan"
+            - "dynamodb:BatchGetItem"
+            - "dynamodb:BatchWriteItem"
+            - "cognito-idp:AdminCreateUser"
+            - "cognito-idp:AdminAddUserToGroup"
+            - "cognito-idp:AdminRemoveUserFromGroup"
+            - "cognito-idp:AdminUpdateUserAttributes"
+            - "cognito-idp:AdminGetUser"
+          Resource: "*"
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
+  - serverless-appsync-simulator
+  - serverless-appsync-plugin
+  - serverless-webpack
+
+useDotenv: true
+
+functions:
+  query-fn:
+    handler: functions/query.handler
+  mutation-fn:
+    handler: functions/mutation.handler
+    environment:
+      STRIPE_SECRET_KEY: ${env:STRIPE_SECRET_KEY}
+
+custom:
+  dynamodb:
+    # If you only want to use DynamoDB Local in some stages, declare them here
+    stages:
+      - dev
+    start:
+      port: 8000
+      heapInitial: 200m
+      heapMax: 1g
+      migrate: true
+      seed: true
+      convertEmptyValues: true
+      # Uncomment only if you already have a DynamoDB running locally
+      noStart: true
+
+  appSync:
+    name: AppSyncStripeDemo
+    schema: schema.graphql
+    authenticationType: AMAZON_COGNITO_USER_POOLS
+    userPoolConfig:
+      defaultAction: ALLOW
+      userPoolId: !Ref CognitoUserPool
+    mappingTemplatesLocation: mapping-templates
+
+    mappingTemplates:
+      - dataSource: LambdaMutationDS
+        type: Mutation
+        field: planSubscriptionCreate
+        request: false
+        response: false
+
+    dataSources:
+      - type: AWS_LAMBDA
+        name: LambdaQueryDS
+        config:
+          functionName: query-fn
+      - type: AWS_LAMBDA
+        name: LambdaMutationDS
+        config:
+          functionName: mutation-fn
+
+resources: # CloudFormation template syntax
+  - ${file(./resources.yml)}

@@ -1,0 +1,23 @@
+type Query {
+  hello: String
+}
+
+type PlanSubscription {
+  id: ID!
+  clientSecret: String
+}
+
+enum Plan {
+  STARTER
+  PRO
+  PARTNER
+}
+
+type Mutation {
+  planSubscriptionCreate(plan: Plan): PlanSubscription
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

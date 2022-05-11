@@ -1,0 +1,13 @@
+#set($dateTime = $util.time.nowISO8601())
+$util.qr($context.args.input.put("createdAt", $dateTime))
+$util.qr($context.args.input.put("updatedAt", $dateTime))
+$util.qr($context.args.input.put("__typename", "Todo"))
+
+{
+    "version" : "2018-05-29",
+    "operation" : "PutItem",
+    "key": {
+        "id" : $util.dynamodb.toDynamoDBJson($util.autoId())
+    },
+    "attributeValues" : $util.dynamodb.toMapValuesJson($context.args.input)
+}
