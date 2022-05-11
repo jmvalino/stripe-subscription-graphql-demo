@@ -1,4 +1,4 @@
-## GraphQL TAC Serverless AppSync
+## stripe-subscription-graphql-demo
 
 This lab will immerse students about the components of [AWS AppSync](https://aws.amazon.com/appsync/) using [Serverless Framework.](https://www.serverless.com/)
 
