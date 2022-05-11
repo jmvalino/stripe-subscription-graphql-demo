@@ -1,7 +1,5 @@
 ## stripe-subscription-graphql-demo
 
-This lab will immerse students about the components of [AWS AppSync](https://aws.amazon.com/appsync/) using [Serverless Framework.](https://www.serverless.com/)
-
 ### Prerequisites
 
 - [NodeJS Version 14 or later](https://nodejs.org/en/)
