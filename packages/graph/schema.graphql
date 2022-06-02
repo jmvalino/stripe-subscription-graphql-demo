@@ -13,6 +13,34 @@ enum Plan {
   PARTNER
 }
 
+type User {
+  id: ID!
+  name: String
+  username: String
+  email: String
+  address: Address
+}
+
+type Address {
+  street: String
+  suite: String
+  city: String
+  zipcode: String
+}
+
+type Post {
+  id: ID!
+  # userId: Int
+  author: User
+  title: String
+  body: String
+}
+
+type Query {
+  users: [User]
+  posts: [Post]
+}
+
 type Mutation {
   planSubscriptionCreate(plan: Plan): PlanSubscription
 }

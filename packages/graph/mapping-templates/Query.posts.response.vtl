@@ -1,0 +1,8 @@
+## return the body
+#if($ctx.result.statusCode == 200)
+    ##if response is 200
+    $ctx.result.body
+#else
+    ##if response is not 200, append the response to error block.
+    $utils.appendError($ctx.result.body, "$ctx.result.statusCode")
+#end

@@ -75,8 +75,27 @@ custom:
         field: planSubscriptionCreate
         request: false
         response: false
+      - dataSource: LambdaMutationDS
+        type: Mutation
+        field: planSubscriptionCreate
+        request: false
+        response: false
+      - dataSource: HTTP_JSON_PLACEHOLDER
+        type: Query
+        field: users
+      - dataSource: HTTP_JSON_PLACEHOLDER
+        type: Post
+        field: author
+      - dataSource: HTTP_JSON_PLACEHOLDER
+        type: Query
+        field: posts
 
     dataSources:
+      - type: HTTP
+        name: HTTP_JSON_PLACEHOLDER
+        description: "JSON Placeholder REST API"
+        config:
+          endpoint: "https://jsonplaceholder.typicode.com/"
       - type: AWS_LAMBDA
         name: LambdaQueryDS
         config:
